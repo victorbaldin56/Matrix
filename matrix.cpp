@@ -5,14 +5,14 @@
 /**
  * 
 */
-static void getpoint(size_t x, size_t y, Matrix *mtx1, Matrix *mtx2, Matrix *resmtx);
+static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2, Matrix *resmtx);
 
 /**
  * 
 */
-static double getelm(size_t x, size_t y, Matrix *mtx);
+static double getelm(size_t x, size_t y, const Matrix *mtx);
 
-void PrintMtx(Matrix *mtx, FILE *stream) {
+void PrintMtx(const Matrix *mtx, FILE *stream) {
     for (size_t y = 0; y < mtx->size_y; y++) {
         for (size_t x = 0; x < mtx->size_x; x++) {
             fprintf(stream, "%6.lf ", getelm(x, y, mtx));
@@ -22,7 +22,7 @@ void PrintMtx(Matrix *mtx, FILE *stream) {
     }
 }
 
-Matrix *MltpMtx(Matrix *mtx1, Matrix *mtx2, Matrix *res) {
+Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res) {
     assert(mtx1);
     assert(mtx2);
     
@@ -42,7 +42,7 @@ Matrix *MltpMtx(Matrix *mtx1, Matrix *mtx2, Matrix *res) {
     return res;
 }
 
-static void getpoint(size_t x, size_t y, Matrix *mtx1, Matrix *mtx2, Matrix *resmtx) {
+static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2, Matrix *resmtx) {
     assert(resmtx->matptr);
     double sum = 0;
 
@@ -53,6 +53,6 @@ static void getpoint(size_t x, size_t y, Matrix *mtx1, Matrix *mtx2, Matrix *res
     *(resmtx->matptr + y * resmtx->size_x + x) = sum;
 }
 
-static double getelm(size_t x, size_t y, Matrix *mtx) {
+static double getelm(size_t x, size_t y, const Matrix *mtx) {
     return *(mtx->matptr + y * mtx->size_x + x);
 }

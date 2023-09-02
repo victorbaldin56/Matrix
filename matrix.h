@@ -15,12 +15,12 @@ typedef struct {
 /**
  * 
 */
-void PrintMtx(Matrix *mtx, FILE *stream);
+void PrintMtx(const Matrix *mtx, FILE *stream);
 
 /**
  * 
 */
-Matrix *MltpMtx(Matrix *mtx1, Matrix *mtx2, Matrix *res);
+Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res);
 
 
 #endif // MATRIX
