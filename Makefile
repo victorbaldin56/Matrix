@@ -9,8 +9,6 @@ OBJECTS = matrix.o
 %.o: %.cpp
 	$(CC) $(FLAGS) -c $< -o $@
 
-start: LIBRARY clean
-
 LIBRARY: matrix.o
 	ar rcs $(LIBRARY) $(OBJECTS)
 
