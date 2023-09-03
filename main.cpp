@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 #include "matrix.h"
 
 int main() {
@@ -33,8 +34,25 @@ int main() {
 
     printf("Printing matrix1:\n");
     PrintMtx(&matrix1, stdout);
+
     printf("Printing matrix2:\n");
     PrintMtx(&matrix2, stdout);
+    
     printf("MltpMtx:\n");
     PrintMtx(MltpMtx(&matrix1, &matrix2, &res), stdout);
+
+    double score[] = 
+        {100,
+         200, 300,
+         400, 500, 600,
+         700, 800, 900, 1000};
+
+    ScoreTable table = 
+    {score,
+     5};
+    printf("Printing ScoreTable sample:\n");
+    PrintTriangle(&table, stdout);
+    printf("end printing\n");
+    //printf("score(2, 3) = %lf\n", getscore(2, 3, &table));
+
 }

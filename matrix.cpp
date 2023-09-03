@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include <math.h>
 #include "matrix.h"
 
 /**
@@ -11,6 +12,11 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
  * 
 */
 static double getelm(size_t x, size_t y, const Matrix *mtx);
+
+/**
+ * 
+*/
+// to do: setelm
 
 void PrintMtx(const Matrix *mtx, FILE *stream) {
     for (size_t y = 0; y < mtx->size_y; y++) {
@@ -40,6 +46,40 @@ Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res) {
     }
 
     return res;
+}
+
+double getscore(size_t x, size_t y, const ScoreTable *table) {
+    assert(table);
+    assert(table->score);
+
+    if (x > table->nteams || y > table->nteams || x == y) {
+        return NAN;
+    }
+
+    if (x < y) {
+        size_t tmp = x;
+        x = y;
+        y = tmp;
+    }
+
+    x--;
+    size_t offset = x * (x + 1) / 2 + y;
+    printf("getscore: x = %zu, y = %zu, offset = %zu\n", x, y, offset);
+    return *(table->score + offset);
+}
+
+void PrintTriangle(const ScoreTable *table, FILE *stream) {
+    assert(table);
+    assert(table->score);
+
+    for (size_t x = 0; x < table->nteams; x++) {
+        for (size_t y = 0; y < x; y++) {
+            printf("PrintTriangle: x = %zu, y = %zu\n", x, y);
+            fprintf(stream, "PrintTriangle got: %6.lf \n", getscore(x, y, table));
+        }
+
+        fputc('\n', stream);
+    }
 }
 
 static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2, Matrix *resmtx) {
