@@ -13,11 +13,6 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
 */
 static double getelm(size_t x, size_t y, const Matrix *mtx);
 
-/**
- * 
-*/
-// to do: setelm
-
 void PrintMtx(const Matrix *mtx, FILE *stream) {
     for (size_t y = 0; y < mtx->size_y; y++) {
         for (size_t x = 0; x < mtx->size_x; x++) {
