@@ -64,7 +64,7 @@ double getscore(size_t x, size_t y, const ScoreTable *table) {
 
     x--;
     size_t offset = x * (x + 1) / 2 + y;
-    printf("getscore: x = %zu, y = %zu, offset = %zu\n", x, y, offset);
+    //printf("getscore: x = %zu, y = %zu, offset = %zu\n", x, y, offset);
     return *(table->score + offset);
 }
 
@@ -74,8 +74,8 @@ void PrintTriangle(const ScoreTable *table, FILE *stream) {
 
     for (size_t x = 0; x < table->nteams; x++) {
         for (size_t y = 0; y < x; y++) {
-            printf("PrintTriangle: x = %zu, y = %zu\n", x, y);
-            fprintf(stream, "PrintTriangle got: %6.lf \n", getscore(x, y, table));
+            //printf("PrintTriangle: x = %zu, y = %zu\n", x, y);
+            fprintf(stream, "%6.lf ", getscore(x, y, table));
         }
 
         fputc('\n', stream);

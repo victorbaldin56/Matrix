@@ -50,9 +50,9 @@ int main() {
     ScoreTable table = 
     {score,
      5};
-    printf("Printing ScoreTable sample:\n");
+    printf("Printing ScoreTable sample:");
     PrintTriangle(&table, stdout);
-    printf("end printing\n");
+    //printf("end printing\n");
     //printf("score(2, 3) = %lf\n", getscore(2, 3, &table));
 
 }
