@@ -45,14 +45,12 @@ int main() {
         {100,
          200, 300,
          400, 500, 600,
-         700, 800, 900, 1000};
+         0, 1000, 900, 800};
 
     ScoreTable table = 
     {score,
      5};
     printf("Printing ScoreTable sample:");
     PrintTriangle(&table, stdout);
-    //printf("end printing\n");
-    //printf("score(2, 3) = %lf\n", getscore(2, 3, &table));
     return 0;
 }
