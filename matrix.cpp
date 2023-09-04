@@ -13,6 +13,8 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
 */
 static double getelm(size_t x, size_t y, const Matrix *mtx);
 
+static void swap(size_t a, size_t b);
+
 void PrintMtx(const Matrix *mtx, FILE *stream) {
     for (size_t y = 0; y < mtx->size_y; y++) {
         for (size_t x = 0; x < mtx->size_x; x++) {
@@ -52,9 +54,7 @@ double *getscore(size_t x, size_t y, const ScoreTable *table) {
     }
 
     if (x < y) {
-        size_t tmp = x;
-        x = y;
-        y = tmp;
+        swap(x, y);
     }
 
     x--;
@@ -94,4 +94,10 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
 
 static double getelm(size_t x, size_t y, const Matrix *mtx) {
     return *((double *)((size_t)mtx->matptr + sizeof(double) * (y * mtx->size_x + x)));
+}
+
+static void swap(size_t a, size_t b) {
+    size_t tmp = a;
+    a = b;
+    b = tmp;
 }
