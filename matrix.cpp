@@ -93,5 +93,5 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
 }
 
 static double getelm(size_t x, size_t y, const Matrix *mtx) {
-    return *(mtx->matptr + y * mtx->size_x + x);
+    return *((double *)((size_t)mtx->matptr + sizeof(double) * (y * mtx->size_x + x)));
 }
