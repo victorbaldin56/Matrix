@@ -33,7 +33,12 @@ typedef struct {
 /**
  * 
 */
-double getscore(size_t x, size_t y, const ScoreTable *table);
+double *getscore(size_t x, size_t y, const ScoreTable *table);
+
+/**
+ * 
+*/
+double *setscore(size_t x, size_t y, ScoreTable *table, double val);
 
 /**
  * 

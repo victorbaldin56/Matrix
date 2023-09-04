@@ -54,5 +54,5 @@ int main() {
     PrintTriangle(&table, stdout);
     //printf("end printing\n");
     //printf("score(2, 3) = %lf\n", getscore(2, 3, &table));
-
+    return 0;
 }

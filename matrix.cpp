@@ -48,12 +48,12 @@ Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res) {
     return res;
 }
 
-double getscore(size_t x, size_t y, const ScoreTable *table) {
+double *getscore(size_t x, size_t y, const ScoreTable *table) {
     assert(table);
     assert(table->score);
 
     if (x > table->nteams || y > table->nteams || x == y) {
-        return NAN;
+        return NULL;
     }
 
     if (x < y) {
@@ -65,7 +65,7 @@ double getscore(size_t x, size_t y, const ScoreTable *table) {
     x--;
     size_t offset = x * (x + 1) / 2 + y;
     //printf("getscore: x = %zu, y = %zu, offset = %zu\n", x, y, offset);
-    return *(table->score + offset);
+    return table->score + offset;
 }
 
 void PrintTriangle(const ScoreTable *table, FILE *stream) {
@@ -75,11 +75,17 @@ void PrintTriangle(const ScoreTable *table, FILE *stream) {
     for (size_t x = 0; x < table->nteams; x++) {
         for (size_t y = 0; y < x; y++) {
             //printf("PrintTriangle: x = %zu, y = %zu\n", x, y);
-            fprintf(stream, "%6.lf ", getscore(x, y, table));
+            fprintf(stream, "%6.lf ", *getscore(x, y, table));
         }
 
         fputc('\n', stream);
     }
+}
+
+double *setscore(size_t x, size_t y, ScoreTable *table, double val) {
+    double *ptr = getscore(x, y, table); 
+    *ptr = val;
+    return ptr; 
 }
 
 static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2, Matrix *resmtx) {
