@@ -2,7 +2,7 @@
 A C library for matrix operations.
 
 ## Functionality
-Printing matrix, matrix multipliction.
+Printing matrix, matrix multipliction, matrix to the power.
 
 ## Building
 ```
