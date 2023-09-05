@@ -32,6 +32,13 @@ void PrintMtx(const Matrix *mtx, FILE *stream);
 Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res);
 
 /**
+ * @param mtx source matrix (must be square)
+ * @param res the result of mtx to the power of n
+ * @param pwr power
+*/
+Matrix *PwrMtx(const Matrix *mtx, Matrix *res, const size_t pwr);
+
+/**
  * @brief This structure includes:
  * @param score pointer to a simple array, in this case used as score triangle table
  * @param nteams the number of members in this score table

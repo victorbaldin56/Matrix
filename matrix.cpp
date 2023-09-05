@@ -13,7 +13,7 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
 */
 static double getelm(size_t x, size_t y, const Matrix *mtx);
 
-static void swap(size_t a, size_t b);
+static void swap(size_t *a, size_t *b);
 
 void PrintMtx(const Matrix *mtx, FILE *stream) {
     for (size_t y = 0; y < mtx->size_y; y++) {
@@ -28,6 +28,7 @@ void PrintMtx(const Matrix *mtx, FILE *stream) {
 Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res) {
     assert(mtx1);
     assert(mtx2);
+    assert(res);
     
     if (mtx1->size_x != mtx2->size_y) {
         return NULL;
@@ -45,6 +46,34 @@ Matrix *MltpMtx(const Matrix *mtx1, const Matrix *mtx2, Matrix *res) {
     return res;
 }
 
+Matrix *PwrMtx(const Matrix *mtx, Matrix *res, const size_t pwr) {
+    assert(mtx);
+    assert(res);
+    assert(mtx->matptr);
+    assert(res->matptr);
+    
+    if (mtx->size_x != mtx->size_y) {
+        return NULL;
+    }
+
+    res->size_x = res->size_y = mtx->size_x;
+
+    if (pwr == 1) {
+        res->matptr = mtx->matptr;
+        return res;
+    }
+
+    else if (pwr % 2 == 0) {
+        Matrix *mtx1 = PwrMtx(mtx, res, pwr / 2);
+        return MltpMtx(mtx1, mtx1, res);
+    }
+
+    else {
+        Matrix *mtx1 = PwrMtx(mtx, res, pwr / 2);
+        return MltpMtx(MltpMtx(mtx1, mtx1, res), mtx, res);
+    }
+}
+
 double *getscore(size_t x, size_t y, const ScoreTable *table) {
     assert(table);
     assert(table->score);
@@ -54,7 +83,7 @@ double *getscore(size_t x, size_t y, const ScoreTable *table) {
     }
 
     if (x < y) {
-        swap(x, y);
+        swap(&x, &y);
     }
 
     x--;
@@ -93,11 +122,11 @@ static void getpoint(size_t x, size_t y, const Matrix *mtx1, const Matrix *mtx2,
 }
 
 static double getelm(size_t x, size_t y, const Matrix *mtx) {
-    return *((double *)((size_t)mtx->matptr + sizeof(double) * (y * mtx->size_x + x)));
+    return *((double *)((char *)mtx->matptr + sizeof(double) * (y * mtx->size_x + x)));
 }
 
-static void swap(size_t a, size_t b) {
-    size_t tmp = a;
-    a = b;
-    b = tmp;
+static void swap(size_t *a, size_t *b) {
+    size_t tmp = *a;
+    *a = *b;
+    *b = tmp;
 }

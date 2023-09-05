@@ -41,6 +41,9 @@ int main() {
     printf("MltpMtx:\n");
     PrintMtx(MltpMtx(&matrix1, &matrix2, &res), stdout);
 
+    printf("PwrMtx(matrix1, res, 2):\n");
+    PrintMtx(PwrMtx(&matrix1, &res, 2), stdout);
+
     double score[] = 
         {100,
          200, 300,
